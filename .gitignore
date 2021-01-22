@@ -1,0 +1,7 @@
+##ignore these files##
+.project
+.buildpath
+.settings/
+*.mp4
+*.daf
+*.pdf
