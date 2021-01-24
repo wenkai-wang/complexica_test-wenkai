@@ -1,0 +1,53 @@
+<configuration>
+    <!-- %m output information, %p log level, %t thread, %d date, %c class name, %i index -->
+    <!-- appender is the sub-point of configuration, to write the log-->
+    <!-- ConsoleAppender - output log to control -->
+<!--    <property name="CONSOLE_LOG_PATTERN" -->
+<!--               value="%date{yyyy-MM-dd HH:mm:ss} | %highlight(%-5level) | %boldYellow(%thread) | %boldGreen(%logger) | %msg%n"/> -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <!--<pattern>${CONSOLE_LOG_PATTERN}</pattern> -->
+            <pattern>%date{yyyy-MM-dd HH:mm:ss} %highlight(%-5level) (%file:%line\)- %m%n</pattern>
+            <!-- a use utf-8, not gbk -->
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <!-- RollingFileAppender:record the log temporary, then move it -->
+    <!-- 1.use date to store log, then change log name to the day before%date%index，new log: sys.log -->
+    <!-- 2.if date no change, if the log is more than 1k, split it -->
+    <appender name="syslog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${catalina.base}/mylog/kasta_qrcode_sys_general.log</File>
+        <!-- rollingPolicy:when rolling, decide RollingFileAppender，related to move log and rename -->  
+        <!-- TimeBasedRollingPolicy： according to time -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- file will change according to fileNamePattern value -->  
+            <!-- file name：log/complexica_wenkai_sys.2021-01-23.0.log -->
+            <fileNamePattern>${catalina.base}/mylog/complexica_wenkai_sys.%d.%i.log</fileNamePattern>
+            <!-- store every log for 30 days -->
+            <maxHistory>30</maxHistory>
+            <timeBasedFileNamingAndTriggeringPolicy  class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">      
+                <!-- maxFileSize: file size of the log file -->    
+                <maxFileSize>1KB</maxFileSize>      
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <encoder>      
+            <!-- pattern, setting for log type -->  
+            <pattern>      
+                %d %p (%file:%line\)- %m%n    
+            </pattern>      
+            <!-- log language code -->  
+            <charset>UTF-8</charset> <!-- character code -->     
+        </encoder>
+    </appender>
+    <!-- log level in console -->
+    <root level="info">
+        <appender-ref ref="STDOUT" />
+    </root>
+    <!-- log level-->  
+    <!-- com.appley is the root folder, level is DEBUG -->  
+    <!-- from high to low：FATAL > ERROR > WARN > INFO > DEBUG > TRACE  -->  
+    <logger name="com.wenkai.server.kastaproductconfigfile" level="DEBUG">      
+        <appender-ref ref="syslog" />      
+    </logger>
+</configuration>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wenkai.server.complexicatest.mapper.ForecastHistoryMapper">
+    <resultMap id="BaseResultMap" type="com.wenkai.server.complexicatest.model.ForecastHistory">
+        <result column="city_name" property="cityName" />
+        <result column="country_code" property="countryCode" />
+        <result column="forecast_date" property="forecastDate" />
+        <result column="temperature" property="temperature" />
+        <result column="clouds" property="clouds" />
+    </resultMap>
+    
+    <!-- insert file_updown_history -->
+    <insert id="insert" parameterType="com.wenkai.server.complexicatest.model.ForcastHistory" keyProperty="UD_ID" useGeneratedKeys="true">
+        INSERT INTO forecast_history(CITY_NAME, COUNTRY_CODE, FORECAST_DATE, TEMPERATURE, CLOUDS) VALUES(#{cityName},#{countryCode},#{forecastDate},#{temperature});
+        <selectKey order="AFTER" resultType="java.math.BigInteger" keyProperty="udId">
+                SELECT LAST_INSERT_ID() as udId
+        </selectKey>
+    </insert>
+    
+    <!-- find forecast_history by city_name -->
+    <select id="findByCityName" parameterType="String" resultMap="BaseResultMap">
+        SELECT UD_ID, CITY_NAME, COUNTRY_CODE, FORCAST_DATE, TEMPERATURE, CLOUDS FROM FORECAST_HISTORY WHERE CITY_NAME=#{0};
+    </select>
+    
+    <!-- find forecast_history by city_name and date -->
+    <select id="findByCityNameAndDate" resultMap="BaseResultMap">
+        SELECT UD_ID, CITY_NAME, COUNTRY_CODE, FORECAST_DATE, TEMPERATURE, CLOUDS FROM FORECAST_HISTORY WHERE CITY_NAME=#{0} and FORECAST_DATE=#{1};
+    </select>
+    
+</mapper>

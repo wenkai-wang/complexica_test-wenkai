@@ -1,0 +1,22 @@
+server:
+    port: 8102
+
+spring:
+    jpa:
+        hibernate:
+            ddl-auto: none
+
+    datasource:
+        username: kc_dba
+        password: wenkai123
+        url: jdbc:mysql://10.1.21.60:3306/kasta_product_config_server?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+        driver-class-name: com.mysql.jdbc.Driver
+
+mybatis:
+    mapper-locations: classpath:mapper/*.xml
+    type-aliases-package: com.wenkai.server.kastaproductconfigfile.model
+
+logging:
+   config: classpath:logback-boot.xml
+   
+
