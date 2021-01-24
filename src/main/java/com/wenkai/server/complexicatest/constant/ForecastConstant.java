@@ -51,8 +51,10 @@ public class ForecastConstant {
 	
 	// Date check success message
 	public static final int CHECK_WEATHER_SUCCESS = 10000;
+	
 	public static final int DATE_PARSE_EXCEPTION = 20001;
 	public static final int DATE_NOT_AVAILABLE = 20002;
+	public static final int OPEN_API_FAILED = 20003;
 	
 	
 	// Date check failed message
