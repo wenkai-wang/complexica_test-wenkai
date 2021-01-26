@@ -10,9 +10,9 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>complexica-technical-test</groupId>
-	<artifactId>kasta-product-configfile</artifactId>
+	<artifactId>wenkai-answer</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>wenkai-answer</name>
+	<name>weather-forecast</name>
 	<description>A back-end side application for displaying weather data</description>
 
 	<properties>
